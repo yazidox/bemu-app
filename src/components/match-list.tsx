@@ -225,9 +225,9 @@ export default function MatchList() {
                             // Find and click the submit button
                             const submitButton = chatInput
                               .closest("form")
-                              ?.querySelector('button[type="submit"]');
+                              ?.querySelector('button[type="submit"]') as HTMLButtonElement;
                             if (submitButton) {
-                              submitButton.click();
+                              (submitButton as HTMLButtonElement).click();
                             }
                           }
                         }}
