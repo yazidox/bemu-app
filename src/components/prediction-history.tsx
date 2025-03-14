@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LineChart, Loader2 } from "lucide-react";
+import { LineChart, Loader2, Clock, CheckCircle, XCircle, AlertCircle } from "lucide-react";
 import { createClient } from "../../supabase/client";
 
 type Prediction = {
@@ -152,41 +152,75 @@ export default function PredictionHistory() {
     },
   ];
 
+  const getResultIcon = (result: string) => {
+    if (result === "Correct") return <CheckCircle className="h-3 w-3 mr-1 text-green-600" />;
+    if (result === "Incorrect") return <XCircle className="h-3 w-3 mr-1 text-red-600" />;
+    return <AlertCircle className="h-3 w-3 mr-1 text-yellow-600" />;
+  };
+
   return (
-    <div className="bg-gray-900/70 rounded-xl p-6 border border-purple-900/50 shadow-lg h-full">
-      <div className="flex items-center gap-2 mb-4 pb-2 border-b border-purple-900/30">
-        <LineChart size={20} className="text-purple-500" />
-        <h2 className="font-mono text-lg text-white">PREDICTION HISTORY</h2>
+    <div className="h-full">
+      <div className="font-mono text-xs text-gray-700 mb-2 pl-2">
+        PREDICTION HISTORY:
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-40">
-          <Loader2 className="h-8 w-8 text-purple-500 animate-spin" />
-          <span className="ml-2 font-mono text-sm">LOADING HISTORY...</span>
+        <div className="flex justify-center items-center h-40 bg-white border-2 border-gray-400 shadow-inner">
+          <Loader2 className="h-8 w-8 text-[#000080] animate-spin" />
+          <span className="ml-2 font-mono text-sm text-[#000080]">
+            LOADING HISTORY...
+          </span>
         </div>
       ) : (
-        <div className="space-y-3 overflow-auto max-h-[400px] pr-2">
-          {predictions.map((prediction) => (
-            <div
-              key={prediction.id}
-              className="p-3 rounded-lg bg-gray-800/30 border border-gray-700/50 hover:border-purple-700/50 transition-all cursor-pointer"
-            >
-              <div className="flex justify-between items-center">
-                <span className="font-mono text-sm">{prediction.match}</span>
-                <span
-                  className={`text-xs px-2 py-1 rounded-full font-mono ${prediction.result === "Correct" ? "bg-green-900/30 text-green-400" : prediction.result === "Pending" ? "bg-yellow-900/30 text-yellow-400" : "bg-red-900/30 text-red-400"}`}
+        <div className="overflow-auto max-h-[320px] bg-white border-2 border-gray-400 shadow-inner">
+          <table className="w-full border-collapse font-mono text-xs">
+            <thead className="sticky top-0 bg-[#c0c0c0] shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff]">
+              <tr>
+                <th className="p-2 text-left border-b border-gray-400">MATCH</th>
+                <th className="p-2 text-left border-b border-gray-400">PREDICTION</th>
+                <th className="p-2 text-left border-b border-gray-400">RESULT</th>
+                <th className="p-2 text-left border-b border-gray-400">DATE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {predictions.map((prediction) => (
+                <tr 
+                  key={prediction.id}
+                  className="hover:bg-[#ece9d8] cursor-pointer border-b border-gray-300"
                 >
-                  {prediction.result}
-                </span>
-              </div>
-              <div className="mt-2 text-xs text-gray-400 flex justify-between">
-                <span>{prediction.prediction}</span>
-                <span>{prediction.date}</span>
-              </div>
-            </div>
-          ))}
+                  <td className="p-2">{prediction.match}</td>
+                  <td className="p-2">{prediction.prediction}</td>
+                  <td className="p-2">
+                    <div className="flex items-center">
+                      {getResultIcon(prediction.result)}
+                      <span className={`
+                        ${prediction.result === "Correct" ? "text-green-700" : 
+                          prediction.result === "Incorrect" ? "text-red-700" : 
+                          "text-yellow-700"}
+                      `}>
+                        {prediction.result}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="p-2 flex items-center">
+                    <Clock className="h-3 w-3 mr-1 text-[#000080]" />
+                    {prediction.date}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
+      
+      <div className="mt-2 flex justify-between">
+        <div className="inline-block px-2 py-1 bg-[#c0c0c0] border-2 border-gray-400 text-[#000080] font-mono text-xs shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff]">
+          TOTAL: {predictions.length}
+        </div>
+        <div className="inline-block px-2 py-1 bg-[#c0c0c0] border-2 border-gray-400 text-[#000080] font-mono text-xs shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff]">
+          SUCCESS RATE: {Math.round((predictions.filter(p => p.result === "Correct").length / predictions.length) * 100)}%
+        </div>
+      </div>
     </div>
   );
 }

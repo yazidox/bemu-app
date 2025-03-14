@@ -25,37 +25,39 @@ export default async function SignInPage({ searchParams }: LoginProps) {
   return (
     <>
       <Navbar />
-      <div className="flex min-h-screen flex-col items-center justify-center bg-black px-4 py-8 relative">
-        {/* Cyberpunk grid background */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1200&q=80')] bg-cover opacity-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black"></div>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[url('/bg.png')] px-4 py-8 relative">
+        {/* Windows 98 style background pattern */}
+        <div className="absolute inset-0 bg-[url('/bg.png')] bg-repeat opacity-10"></div>
 
-        {/* Animated scan line effect */}
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-transparent to-transparent bg-[length:100%_4px] bg-repeat-y animate-scan pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(to bottom, rgba(0,255,255,0.1) 50%, transparent 50%)",
-          }}
-        ></div>
-
-        <div className="w-full max-w-md rounded-lg border border-cyan-900/50 bg-gray-900/80 p-6 shadow-lg backdrop-blur-sm relative z-10">
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-cyan-900/80 px-4 py-1 rounded-md border border-cyan-500">
-            <div className="flex items-center gap-2 text-cyan-300 font-mono text-sm">
-              <Cpu size={14} className="animate-pulse" />
-              <span>SYSTEM LOGIN</span>
+        <div className="w-full max-w-md rounded-none border-2 border-gray-500 bg-[#ece9d8] p-6 shadow-md relative z-10">
+          {/* Windows title bar */}
+          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-r from-[#000080] to-[#1084d0] flex items-center px-2 -mt-8 border-2 border-gray-500 border-b-0">
+            <div className="flex items-center gap-2 text-white font-bold">
+              <Cpu size={16} />
+              <span>L.U.C.I. System Login</span>
+            </div>
+            <div className="ml-auto flex">
+              <button className="w-6 h-5 bg-[#c0c0c0] border border-gray-500 flex items-center justify-center text-xs mr-1">
+                _
+              </button>
+              <button className="w-6 h-5 bg-[#c0c0c0] border border-gray-500 flex items-center justify-center text-xs mr-1">
+                □
+              </button>
+              <button className="w-6 h-5 bg-[#c0c0c0] border border-gray-500 flex items-center justify-center text-xs">
+                ×
+              </button>
             </div>
           </div>
 
-          <form className="flex flex-col space-y-6">
-            <div className="space-y-2 text-center mt-4">
-              <h1 className="text-3xl font-semibold tracking-tight text-white font-mono">
+          <form className="flex flex-col space-y-6 mt-2">
+            <div className="space-y-2 text-center">
+              <h1 className="text-2xl font-semibold tracking-tight text-[#000080]">
                 ACCESS L.U.C.I.
               </h1>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-700">
                 Don't have an account?{" "}
                 <Link
-                  className="text-cyan-400 font-medium hover:underline transition-all"
+                  className="text-blue-700 font-medium hover:underline transition-all"
                   href="/sign-up"
                 >
                   Register
@@ -67,9 +69,9 @@ export default async function SignInPage({ searchParams }: LoginProps) {
               <div className="space-y-2">
                 <Label
                   htmlFor="email"
-                  className="text-sm font-medium text-gray-300 font-mono flex items-center gap-2"
+                  className="text-sm font-medium text-gray-700 flex items-center gap-2"
                 >
-                  <Mail size={14} className="text-cyan-500" />
+                  <Mail size={14} className="text-[#000080]" />
                   EMAIL
                 </Label>
                 <Input
@@ -78,7 +80,7 @@ export default async function SignInPage({ searchParams }: LoginProps) {
                   type="email"
                   placeholder="you@example.com"
                   required
-                  className="w-full bg-gray-800/80 border-gray-700 text-white focus:border-cyan-500 focus:ring-cyan-500/20"
+                  className="w-full bg-white border-2 border-gray-400 text-black focus:border-[#000080] shadow-inner"
                 />
               </div>
 
@@ -86,13 +88,13 @@ export default async function SignInPage({ searchParams }: LoginProps) {
                 <div className="flex justify-between items-center">
                   <Label
                     htmlFor="password"
-                    className="text-sm font-medium text-gray-300 font-mono flex items-center gap-2"
+                    className="text-sm font-medium text-gray-700 flex items-center gap-2"
                   >
-                    <Lock size={14} className="text-cyan-500" />
+                    <Lock size={14} className="text-[#000080]" />
                     PASSWORD
                   </Label>
                   <Link
-                    className="text-xs text-gray-500 hover:text-cyan-400 hover:underline transition-all"
+                    className="text-xs text-blue-700 hover:underline transition-all"
                     href="/forgot-password"
                   >
                     Forgot Password?
@@ -104,13 +106,13 @@ export default async function SignInPage({ searchParams }: LoginProps) {
                   name="password"
                   placeholder="Your password"
                   required
-                  className="w-full bg-gray-800/80 border-gray-700 text-white focus:border-cyan-500 focus:ring-cyan-500/20"
+                  className="w-full bg-white border-2 border-gray-400 text-black focus:border-[#000080] shadow-inner"
                 />
               </div>
             </div>
 
             <SubmitButton
-              className="w-full bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-500 hover:to-blue-600 text-white font-mono border border-cyan-500"
+              className="w-full bg-[#c0c0c0] hover:bg-[#d0d0d0] text-black font-bold border-2 border-gray-400 shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff] active:shadow-[inset_1px_1px_#707070,inset_-1px_-1px_#fff]"
               pendingText="AUTHENTICATING..."
               formAction={signInAction}
             >

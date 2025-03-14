@@ -108,7 +108,7 @@ export default function SportsCategories() {
         // Find and click the submit button
         const submitButton = chatInput
           .closest("form")
-          ?.querySelector('button[type="submit"]');
+          ?.querySelector('button[type="submit"]') as HTMLButtonElement;
         if (submitButton) {
           submitButton.click();
         }
@@ -117,34 +117,43 @@ export default function SportsCategories() {
   };
 
   return (
-    <div className="bg-gray-900/70 rounded-xl p-6 border border-cyan-900/50 shadow-lg h-full">
-      <div className="flex items-center gap-2 mb-4 pb-2 border-b border-cyan-900/30">
-        <Brain size={20} className="text-cyan-500" />
-        <h2 className="font-mono text-lg text-white">SPORTS CATEGORIES</h2>
+    <div className="w-full">
+      <div className="font-mono text-xs text-gray-700 mb-1 pl-2">
+        AVAILABLE SPORTS:
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-40">
-          <Loader2 className="h-8 w-8 text-cyan-500 animate-spin" />
-          <span className="ml-2 font-mono text-sm">LOADING CATEGORIES...</span>
+        <div className="flex justify-center items-center h-40 bg-white border-2 border-gray-400 shadow-inner">
+          <Loader2 className="h-8 w-8 text-[#000080] animate-spin" />
+          <span className="ml-2 font-mono text-sm text-[#000080]">
+            LOADING CATEGORIES...
+          </span>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {categories.map((category) => (
             <div
               key={category.id}
-              className={`p-3 rounded-lg flex justify-between items-center cursor-pointer transition-all ${category.active ? `bg-cyan-900/20 border border-cyan-800/50 hover:border-cyan-600/50 ${selectedCategory === category.id ? "border-cyan-500" : ""}` : "bg-gray-800/20 border border-gray-700/30 text-gray-500"}`}
+              className={`p-2 flex justify-between items-center cursor-pointer transition-all ${
+                category.active
+                  ? `bg-[#ece9d8] border-2 border-gray-400 hover:border-[#000080] ${
+                      selectedCategory === category.id
+                        ? "border-[#000080]"
+                        : ""
+                    }`
+                  : "bg-[#d4d0c8] border-2 border-gray-400 text-gray-500"
+              }`}
               onClick={() =>
                 category.active && handleCategoryClick(category.id)
               }
             >
-              <span className="font-mono">{category.name}</span>
+              <span className="font-mono text-sm">{category.name}</span>
               {category.active ? (
-                <span className="text-xs px-2 py-1 bg-cyan-900/50 rounded-full text-cyan-300 font-mono">
+                <span className="text-xs px-2 py-1 bg-[#c0c0c0] border border-gray-400 text-[#000080] font-mono shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff]">
                   {category.matches} matches
                 </span>
               ) : (
-                <span className="text-xs px-2 py-1 bg-gray-800/50 rounded-full text-gray-500 font-mono">
+                <span className="text-xs px-2 py-1 bg-gray-300 border border-gray-400 text-gray-600 font-mono shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff]">
                   Inactive
                 </span>
               )}
@@ -153,11 +162,11 @@ export default function SportsCategories() {
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t border-cyan-900/30">
+      <div className="mt-4">
         <Button
           variant="outline"
           size="sm"
-          className="w-full border-cyan-800 text-cyan-400 hover:bg-cyan-900/20 font-mono text-xs"
+          className="w-full bg-[#c0c0c0] border-2 border-gray-400 text-black hover:bg-[#d0d0d0] font-mono text-xs shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff] active:shadow-[inset_1px_1px_#707070,inset_-1px_-1px_#fff]"
           onClick={() => window.location.reload()}
         >
           REFRESH CATEGORIES

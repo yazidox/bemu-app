@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Trophy, Clock, Loader2, CircleDot, CircleUser } from "lucide-react";
+import { Trophy, Clock, Loader2, CircleDot, CircleUser, Calendar } from "lucide-react";
 
 export default function SportmonksMatchList() {
   const [matches, setMatches] = useState<SportmonksMatch[]>([]);
@@ -80,41 +80,41 @@ export default function SportmonksMatchList() {
         value={activeTab}
         onValueChange={(value) => setActiveTab(value as any)}
       >
-        <TabsList className="grid w-full grid-cols-2 bg-gray-800 border border-gray-700">
+        <TabsList className="grid w-full grid-cols-2 bg-[#c0c0c0] border-2 border-gray-400 shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff]">
           <TabsTrigger
             value="football"
-            className="data-[state=active]:bg-cyan-900/30 data-[state=active]:text-cyan-400 font-mono"
+            className="data-[state=active]:bg-[#ece9d8] data-[state=active]:text-[#000080] font-mono border-r border-gray-400"
           >
-            <CircleDot className="h-4 w-4 mr-2" /> SOCCER
+            SOCCER
           </TabsTrigger>
           <TabsTrigger
             value="nba"
-            className="data-[state=active]:bg-purple-900/30 data-[state=active]:text-purple-400 font-mono"
+            className="data-[state=active]:bg-[#ece9d8] data-[state=active]:text-[#000080] font-mono"
           >
-            <CircleUser className="h-4 w-4 mr-2" /> NBA
+        NBA
           </TabsTrigger>
         </TabsList>
 
         {["football", "nba"].map((sport) => (
           <TabsContent key={sport} value={sport} className="mt-4">
             {loading ? (
-              <div className="flex justify-center items-center h-40">
-                <Loader2 className="h-8 w-8 text-cyan-500 animate-spin" />
-                <span className="ml-2 font-mono text-sm">
+              <div className="flex justify-center items-center h-40 bg-white border-2 border-gray-400 shadow-inner">
+                <Loader2 className="h-8 w-8 text-[#000080] animate-spin" />
+                <span className="ml-2 font-mono text-sm text-[#000080]">
                   LOADING MATCH DATA...
                 </span>
               </div>
             ) : error ? (
-              <div className="bg-red-900/20 border border-red-800 p-4 rounded-md text-red-400 font-mono text-sm">
+              <div className="bg-white border-2 border-gray-400 p-4 shadow-inner text-red-600 font-mono text-sm">
                 {error}
               </div>
             ) : matches.length === 0 ? (
-              <div className="bg-gray-800/50 border border-gray-700 p-4 rounded-md text-gray-400 font-mono text-sm text-center">
+              <div className="bg-white border-2 border-gray-400 p-4 shadow-inner text-gray-700 font-mono text-sm text-center">
                 <p>NO MATCHES FOUND</p>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="mt-2 border-cyan-800 text-cyan-400 hover:bg-cyan-900/20"
+                  className="mt-2 bg-[#c0c0c0] border-2 border-gray-400 text-black hover:bg-[#d0d0d0] shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff] active:shadow-[inset_1px_1px_#707070,inset_-1px_-1px_#fff]"
                   onClick={() => fetchMatches(sport as any)}
                 >
                   REFRESH DATA
@@ -127,47 +127,47 @@ export default function SportmonksMatchList() {
                   return (
                     <Card
                       key={match.id}
-                      className="bg-gray-800/50 border border-gray-700 hover:border-cyan-700 transition-all"
+                      className="bg-[#ece9d8] border-2 border-gray-500 rounded-none shadow-md hover:border-[#000080] transition-all"
                     >
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-center">
                           <Badge
                             variant="outline"
-                            className="font-mono text-xs border-cyan-800 text-cyan-400"
+                            className="font-mono text-xs bg-[#c0c0c0] border-2 border-gray-400 text-[#000080] shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff] rounded-none"
                           >
                             {activeTab === "football" ? "SOCCER" : "NBA"}
                           </Badge>
-                          <div className="flex items-center text-xs text-gray-400">
-                            <Clock className="h-3 w-3 mr-1" />
+                          <div className="flex items-center text-xs text-gray-700 bg-white px-2 py-1 border border-gray-400 shadow-inner">
+                            <Clock className="h-3 w-3 mr-1 text-[#000080]" />
                             {formatTime(match.starting_at)} -{" "}
                             {formatDate(match.starting_at)}
                           </div>
                         </div>
-                        <CardTitle className="text-lg mt-2 font-mono">
+                        <CardTitle className="text-lg mt-2 font-mono text-[#000080]">
                           {match.name}
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="grid grid-cols-3 gap-2 text-center mb-3">
-                          <div className="bg-gray-900/50 p-2 rounded-md">
-                            <div className="text-xs text-gray-400 mb-1">
+                          <div className="bg-white p-2 border-2 border-gray-400 shadow-inner">
+                            <div className="text-xs text-gray-700 mb-1">
                               HOME
                             </div>
-                            <div className="text-lg font-bold text-white">
+                            <div className="text-lg font-bold text-[#000080]">
                               {teams.home}
                             </div>
                           </div>
-                          <div className="bg-gray-900/50 p-2 rounded-md">
-                            <div className="text-xs text-gray-400 mb-1">VS</div>
-                            <div className="text-lg font-bold text-white">
+                          <div className="bg-white p-2 border-2 border-gray-400 shadow-inner">
+                            <div className="text-xs text-gray-700 mb-1">VS</div>
+                            <div className="text-lg font-bold text-[#000080]">
                               -
                             </div>
                           </div>
-                          <div className="bg-gray-900/50 p-2 rounded-md">
-                            <div className="text-xs text-gray-400 mb-1">
+                          <div className="bg-white p-2 border-2 border-gray-400 shadow-inner">
+                            <div className="text-xs text-gray-700 mb-1">
                               AWAY
                             </div>
-                            <div className="text-lg font-bold text-white">
+                            <div className="text-lg font-bold text-[#000080]">
                               {teams.away}
                             </div>
                           </div>
@@ -177,7 +177,7 @@ export default function SportmonksMatchList() {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="w-full border-cyan-800 text-cyan-400 hover:bg-cyan-900/20 font-mono text-xs"
+                          className="w-full bg-[#c0c0c0] border-2 border-gray-400 text-black hover:bg-[#d0d0d0] font-mono text-xs shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff] active:shadow-[inset_1px_1px_#707070,inset_-1px_-1px_#fff]"
                           onClick={() => {
                             const chatInput = document.querySelector(
                               'input[placeholder="Ask L.U.C.I. about predictions..."]',
@@ -188,7 +188,7 @@ export default function SportmonksMatchList() {
                               // Find and click the submit button
                               const submitButton = chatInput
                                 .closest("form")
-                                ?.querySelector('button[type="submit"]');
+                                ?.querySelector('button[type="submit"]') as HTMLButtonElement;
                               if (submitButton) {
                                 submitButton.click();
                               }

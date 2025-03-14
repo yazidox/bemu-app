@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Cpu, Send } from "lucide-react";
+import { Cpu, Send, MessageSquare } from "lucide-react";
 
 type Message = {
   role: "user" | "assistant";
@@ -103,29 +103,29 @@ export default function ChatInterface() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center gap-2 mb-4 pb-2 border-b border-cyan-900/30 bg-gray-800/50">
-        <Cpu size={16} className="text-cyan-500 ml-2" />
-        <h2 className="font-mono text-sm text-white">
-          /// PREDICTIVE ANALYSIS CHAT
+      <div className="flex items-center gap-2 mb-2 pb-2 border-b-2 border-gray-400 bg-[#ece9d8]">
+        <Cpu size={16} className="text-[#000080] ml-2" />
+        <h2 className="font-mono text-sm text-[#000080]">
+          L.U.C.I. PREDICTIVE ANALYSIS
         </h2>
-        <div className="ml-auto text-xs px-2 py-1 bg-gray-900 border border-cyan-900 text-cyan-400 font-mono mr-2">
+        <div className="ml-auto text-xs px-2 py-1 bg-[#c0c0c0] border-2 border-gray-400 text-[#000080] font-mono mr-2 shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff]">
           {credits} CREDITS
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto space-y-3 mb-3 pr-2 bg-gray-200/90">
+      <div className="flex-1 overflow-auto space-y-2 mb-2 pr-2 bg-white shadow-inner">
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`p-3 text-sm ${
+            className={`p-2 text-sm ${
               message.role === "assistant"
-                ? "bg-gray-300 border-l-4 border-cyan-500 text-black"
-                : "bg-gray-300 border-r-4 border-gray-500 text-black text-right"
+                ? "bg-[#ece9d8] border-l-2 border-[#000080] text-black ml-1"
+                : "bg-[#c0c0c0] border-r-2 border-gray-500 text-black text-right mr-1"
             }`}
           >
             <p
               className={`font-mono text-xs mb-1 ${
-                message.role === "assistant" ? "text-cyan-700" : "text-gray-700"
+                message.role === "assistant" ? "text-[#000080]" : "text-gray-700"
               }`}
             >
               {message.role === "assistant"
@@ -136,19 +136,19 @@ export default function ChatInterface() {
           </div>
         ))}
         {isLoading && (
-          <div className="bg-gray-300 border-l-4 border-cyan-500 p-3 text-sm">
-            <p className="text-cyan-700 font-mono text-xs mb-1">
+          <div className="bg-[#ece9d8] border-l-2 border-[#000080] p-2 text-sm ml-1">
+            <p className="text-[#000080] font-mono text-xs mb-1">
               L.U.C.I. AI ////////
             </p>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-cyan-600 animate-pulse"></div>
-              <div className="w-2 h-2 bg-cyan-600 animate-pulse delay-150"></div>
-              <div className="w-2 h-2 bg-cyan-600 animate-pulse delay-300"></div>
+              <div className="w-2 h-2 bg-[#000080] animate-pulse"></div>
+              <div className="w-2 h-2 bg-[#000080] animate-pulse delay-150"></div>
+              <div className="w-2 h-2 bg-[#000080] animate-pulse delay-300"></div>
             </div>
           </div>
         )}
         {error && (
-          <div className="bg-gray-300 border-l-4 border-red-500 p-3 text-sm">
+          <div className="bg-[#ece9d8] border-l-2 border-red-500 p-2 text-sm ml-1">
             <p className="text-red-700 font-mono text-xs mb-1">
               SYSTEM ERROR ////////
             </p>
@@ -158,9 +158,9 @@ export default function ChatInterface() {
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="relative bg-gray-300 p-2">
+      <form onSubmit={handleSubmit} className="relative bg-[#ece9d8] p-2 border-t-2 border-gray-400">
         <div className="font-mono text-xs text-gray-700 mb-1 pl-2">
-          PROMPT CAN GO HERE...
+          ENTER QUERY:
         </div>
         <div className="flex">
           <Input
@@ -169,12 +169,12 @@ export default function ChatInterface() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isLoading}
-            className="w-full bg-gray-200 border border-gray-400 p-2 text-sm font-mono focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+            className="w-full bg-white border-2 border-gray-400 p-2 text-sm font-mono focus:border-[#000080] focus:outline-none shadow-inner"
           />
           <Button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="ml-2 bg-gray-600 hover:bg-gray-700 text-white font-mono text-xs"
+            className="ml-2 bg-[#c0c0c0] hover:bg-[#d0d0d0] text-black font-mono text-xs border-2 border-gray-400 shadow-[inset_-1px_-1px_#707070,inset_1px_1px_#fff] active:shadow-[inset_1px_1px_#707070,inset_-1px_-1px_#fff]"
           >
             SUBMIT
           </Button>

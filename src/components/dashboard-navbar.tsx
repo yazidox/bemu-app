@@ -11,6 +11,7 @@ import {
 import { Button } from "./ui/button";
 import { UserCircle, Home, Cpu } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function DashboardNavbar() {
   const supabase = createClient();
@@ -21,10 +22,13 @@ export default function DashboardNavbar() {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <Link href="/" prefetch className="flex items-center gap-2">
-            <Cpu className="h-6 w-6 text-cyan-500" />
-            <span className="text-xl font-mono font-bold text-white">
-              L.U.C.I.
-            </span>
+            <Image
+              src="/logo.png"
+              alt="L.U.C.I. AI Logo"
+              width={180}
+              height={180}
+              className="drop-shadow-sm"
+            />
           </Link>
           <Link
             href="/"
